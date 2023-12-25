@@ -5,9 +5,15 @@ import pro1 from '../../assets/pro_1.png'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import  Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../redux/cartslice';
+import { useNavigation } from '@react-navigation/native';
+
 // const Tab = createBottomTabNavigator();
 
 const Home = () => {
+  const navigation= useNavigation();
+  const dispatch = useDispatch();
   const [data,setData]=useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -19,9 +25,9 @@ const Home = () => {
     };
     fetchData();
   }, []); 
-  const addToCart = (product) => {
+  const addcart = (product) => {
     // Thêm logic để xử lý việc thêm sản phẩm vào giỏ hàng ở đây
-    console.log('Added to cart:', product);
+    dispatch(addToCart(product));
     // Ví dụ: có thể lưu vào một state khác để lưu trữ giỏ hàng
     // hoặc gọi một hàm xử lý việc thêm vào giỏ hàng từ component cha
   };
@@ -71,6 +77,10 @@ const Home = () => {
     <ScrollView horizontal>
   <View style={{ flexDirection: 'row', marginBottom: 80 }}>
     {data.map((item, index) => (
+      <TouchableOpacity
+      key={index}
+      onPress={() => navigation.navigate('Detail', { product: item })}
+    >
       <View key={index} style={{ paddingLeft: 15, paddingTop: 7, position: 'relative' }}>
         <View>
           <Image source={{ uri: item.image }} style={{ width: 150,height:185, borderRadius: 10 }} />
@@ -101,11 +111,13 @@ const Home = () => {
             <Text style={{ color: 'grey', fontSize: 16, textDecorationLine: 'line-through', fontWeight: 'bold' }}>15$</Text>
             <Text style={{ color: 'red', fontSize: 16, fontWeight: 'bold' }}>{item.price}</Text>
           </View>
-          <TouchableOpacity onPress={() => addToCart(item)}className="items-center bg-red-600 rounded-full h-[30] mt-2" >
+          <TouchableOpacity onPress={() => addcart(item)}className="items-center bg-red-600 rounded-full h-[30] mt-2" >
         <Text className="text-center mt-1 text-white">Add To Cart</Text>
       </TouchableOpacity>
         </View>
       </View>
+      
+      </TouchableOpacity>
     ))}
   </View>
 </ScrollView>
