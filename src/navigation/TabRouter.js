@@ -4,17 +4,18 @@ import HomeStack from './HomeStack';
 import Icon from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import CartScreen from '../Screen/cart';
+import SettingScreen from '../setting';
 
 const Tab=createBottomTabNavigator();
 const TabRouter = () => {
   return (
     <Tab.Navigator
-    initialRouteName={'Home'}
+    // initialRouteName={'Home'}
     screenOptions={{
       headerShown: false,
       tabBarActiveTintColor: "red",
       tabBarInactiveTintColor: "gray",
-      // tabBarShowLabel: false,
+      tabBarShowLabel: false,
       tabBarItemStyle: {
         padding: 1,
         marginBottom: 12,
@@ -26,7 +27,7 @@ const TabRouter = () => {
     }}
   >
     <Tab.Screen
-      name={'Home'}
+      name={'HomeStack'}
       component={HomeStack}
       options={{
         tabBarIcon: ({ focused }) => {
@@ -60,7 +61,7 @@ const TabRouter = () => {
     />
      <Tab.Screen
       name={"User"}
-      component={HomeStack}
+      component={SettingScreen}
       options={{
         tabBarIcon: ({ focused }) => {
           return (
