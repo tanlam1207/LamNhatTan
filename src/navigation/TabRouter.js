@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import CartScreen from '../Screen/cart';
 import SettingScreen from '../setting';
+import Searchitem from '../Screen/search';
 
 const Tab=createBottomTabNavigator();
 const TabRouter = () => {
@@ -39,7 +40,7 @@ const TabRouter = () => {
     />
     <Tab.Screen
       name={"Search"}
-      component={HomeStack}
+      component={Searchitem}
       options={{
         tabBarIcon: ({ focused }) => {
           return (
