@@ -53,7 +53,7 @@ const Itemhome = ({data}) => {
             <Text style={{ color: 'red', fontSize: 16, fontWeight: 'bold' }}>{item.price}</Text>
           </View>
           <TouchableOpacity onPress={() => addcart(item)}className="items-center bg-red-600 rounded-full h-[30] mt-2" >
-        <Text className="text-center mt-1 text-white">Add To Cart</Text>
+        <Text className="text-center mt-1 text-white">Thêm vào giỏ hàng</Text>
       </TouchableOpacity>
         </View>
       </View>

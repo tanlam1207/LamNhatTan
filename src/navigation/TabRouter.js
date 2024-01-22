@@ -6,6 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import CartScreen from '../Screen/cart';
 import SettingScreen from '../setting';
 import Searchitem from '../Screen/search';
+import AllProduct from '../Screen/allproduct';
 
 const Tab=createBottomTabNavigator();
 const TabRouter = () => {
@@ -34,6 +35,17 @@ const TabRouter = () => {
         tabBarIcon: ({ focused }) => {
           return (
             <Icon name="home" size={25} color={focused ? "red" : "gray"} />
+          );
+        },
+      }}
+    />
+        <Tab.Screen
+      name={"Product"}
+      component={AllProduct}
+      options={{
+        tabBarIcon: ({ focused }) => {
+          return (
+            <Icon name="albums" size={25} color={focused ? "red" : "gray"} />
           );
         },
       }}

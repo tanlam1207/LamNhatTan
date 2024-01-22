@@ -5,7 +5,7 @@ import { ScrollView, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import pic1 from "../../../assets/cart1.png";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCart } from "../../redux/cartslice";
+import { deleteCart, updateQuantity } from "../../redux/cartslice";
 
 const CartScreen = () => {
   const dispatch = useDispatch();
@@ -13,20 +13,24 @@ const CartScreen = () => {
     const delCart = (productId) => {
       dispatch(deleteCart({ id: productId }));
     };
-  
-  return (
-    <ScrollView>
-      <View className="pt-10 flex flex-row justify-between items-center px-5">
-        <View className=""></View>
-        <View className="">
-          <Icon name="search" size={24}></Icon>
-        </View>
-      </View>
-      <View className="ml-5">
-        <Text className="text-4xl">Giỏ hàng</Text>
-      </View>
-      {cartItems?.map((item, index) => (
-      <View key={index} className=" mt-5 pl-5 flex flex-row">
+    const updateProductQuantity = (productId, newQuantity) => {
+      const validQuantity = Math.max(1, newQuantity);
+      dispatch(updateQuantity({ id: productId, newQuantity: validQuantity }));
+    };
+    const calculateTotal = (item) => {
+      const total = (item.price * item.quantity).toFixed(2);
+      return total;
+    };
+    const calculateTotalAmount = () => {
+      const totalAmount = cartItems.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+      );
+      return totalAmount.toFixed(2);
+    };
+    const renderCartItem = (item, index) => {
+      return (
+        <View key={index} className=" mt-5 pl-5 flex flex-row">
         <View className="basis-1/4">
         <Image source={{ uri: item.image }} style={{ width: 120,height:140, borderRadius: 10 }} />
         </View>
@@ -48,25 +52,50 @@ const CartScreen = () => {
           </View>
           <View className="flex-row">
           <View className="mt-3 flex-row items-center">
-            <TouchableOpacity className="w-9 h-9 justify-center items-center rounded-full bg-slate-200" >
-              <Icon name="minus"></Icon>
-            </TouchableOpacity>
-            <TextInput defaultValue="1" className="w-10 text-center"/>
-            <TouchableOpacity className="w-9 h-9 justify-center items-center rounded-full bg-slate-200">
-              <Icon name="plus"></Icon>
-            </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => updateProductQuantity(item.id, item.quantity - 1)}
+            className="w-9 h-9 justify-center items-center rounded-full bg-slate-200"
+          >
+            <Icon name="minus"></Icon>
+          </TouchableOpacity>
+          <TextInput
+            value={item.quantity.toString()}
+            onChangeText={(text) => updateProductQuantity(item.id, +text)}
+            className="w-10 text-center"
+          />
+          <TouchableOpacity
+            onPress={() => updateProductQuantity(item.id, item.quantity + 1)}
+            className="w-9 h-9 justify-center items-center rounded-full bg-slate-200"
+          >
+            <Icon name="plus"></Icon>
+          </TouchableOpacity>
           </View>
           <View>
             <Text className="mt-4 ml-6 font-bold text-xl">
-            {item.price}$
+            {calculateTotal(item)}
             </Text>
           </View>
           </View>
         </View>
         {/* Đang làm nút tăng giảm qtycls */}
       </View>
-      ))}
+      );
+    };
+  return (
+    <View className="flex-1 mt-5">
+    <ScrollView className="max-h-[700]">
+      {cartItems?.map((item, index) => renderCartItem(item, index))}
     </ScrollView>
+    <View className="p-5 bg-gray-200">
+      <TouchableOpacity
+        onPress={() => {
+        }}
+        className="bg-blue-500 py-3 rounded-md items-center justify-center"
+      >
+        <Text className="text-white text-xl font-bold">Thanh toán {calculateTotalAmount()} $</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
   );
 };
 

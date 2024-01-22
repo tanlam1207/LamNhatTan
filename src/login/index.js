@@ -13,7 +13,7 @@ const LoginScreen = () => {
       password: "",
     });
     const [user, setUser] = React.useState({
-      username: "tan1207",
+      username: "Tan123",
       password: "123456",
     });
     const handlePressLogin = () => {

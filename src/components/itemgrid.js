@@ -9,24 +9,16 @@ const Itemgrid = ({data}) => {
     const navigation= useNavigation();
     const dispatch = useDispatch();
     const addcart = (product) => {
-        // Thêm logic để xử lý việc thêm sản phẩm vào giỏ hàng ở đây
         dispatch(addToCart(product));
-        // Ví dụ: có thể lưu vào một state khác để lưu trữ giỏ hàng
-        // hoặc gọi một hàm xử lý việc thêm vào giỏ hàng từ component cha
       };
       
   return (
     <ScrollView>
-      <View className="pt-10 flex flex-row justify-between items-center px-5">
-        <View className=""></View>
-        <View className="">
-          <Icon name="search" size={24}></Icon>
-        </View>
-      </View>
-      <View className="ml-5">
-        <Text className="text-4xl">Giỏ hàng</Text>
-      </View>
       {data.map((item, index) => (
+         <TouchableOpacity
+         key={index}
+         onPress={() => navigation.navigate('Detail', { product: item })}
+       >
       <View key={index} className=" mt-5 pl-5 flex flex-row">
         <View className="basis-1/4">
         <Image source={{ uri: item.image }} style={{ width: 120,height:140, borderRadius: 10 }} />
@@ -58,8 +50,9 @@ const Itemgrid = ({data}) => {
    </View>
           
         </View>
-        {/* Đang làm nút tăng giảm qtycls */}
+
       </View>
+      </TouchableOpacity>
       ))}
     </ScrollView>
   )

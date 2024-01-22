@@ -44,10 +44,10 @@ const Home = () => {
       <View className="absolute bottom-12 ml-5">
         <View>
           <Text className="text-5xl font-black text-white">
-            Fashion
+            Thời trang
           </Text>
           <Text className="text-5xl font-black text-white">
-            Sale
+            Giảm giá
           </Text>
         </View>
         <View className="bg-red-500 h-[50] rounded-full mt-4">
@@ -62,15 +62,15 @@ const Home = () => {
     <View className="pt-10 flex flex-row justify-between items-center px-5">
       <View>
         <Text className="text-4xl font-bold">
-          Sale
+          Giảm giá
         </Text>
         <Text className="text-xm text-gray-400">
-        Super summer sale
+        Siêu giảm giá trong mùa hè
         </Text>
       </View>
       <View>
         <Text className="text-xm text-gray-500">
-          View All
+          Xem tất cả
         </Text>
       </View>
     </View>
@@ -81,7 +81,7 @@ const Home = () => {
     <View className="pt-1 flex flex-row justify-between items-center px-5">
       <View>
         <Text className="text-4xl font-bold">
-          New Product
+          Sản phẩm mới
         </Text>
         <Text className="text-xm text-gray-400">
         In January
@@ -89,7 +89,7 @@ const Home = () => {
       </View>
       <View>
         <Text className="text-xm text-gray-500">
-          View All
+          Xem tất cả
         </Text>
       </View>
     </View>
